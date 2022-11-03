@@ -34,6 +34,10 @@ is implemented in Ruby.
 
      remove the last node of the list
      
+**#shift**
+
+     remove the first node of the list
+     
 **#contains?(value)**
 
      return true if given value is in the list, else return false
@@ -48,3 +52,11 @@ is implemented in Ruby.
      
      the format should be: ( value ) -> ( value ) -> ( value ) -> nil
      
+**#insert_at**
+
+     insert new node with value at respective index
+     
+**#delete_at**
+     
+     delete node in list at respective index
+ 
