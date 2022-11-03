@@ -1,6 +1,7 @@
 # Description
-In this project, a basic and fundamental data structure,
-[linked list](https://en.wikipedia.org/wiki/Linked_list)
+This project is part of [TOP](https://www.theodinproject.com/lessons/ruby-linked-lists)
+curriculum.
+In this project, [linked list](https://en.wikipedia.org/wiki/Linked_list)
 is implemented in Ruby.
 
 # Overall Structure
