@@ -11,18 +11,14 @@ class LinkedList
   end
 
   def append(value)
-    new_node = Node.new(value)
+    return @head = Node.new(value) if head.nil?
 
-    if @head.nil?
-      @head = new_node
-    else
-      dummy = @head
-      dummy = dummy.next_node until dummy.next_node.nil?
-      dummy.next_node = new_node
-    end
+    dummy = @head
+    dummy = dummy.next_node until dummy.next_node.nil?
+    dummy.next_node = Node.new(value)
   end
 
-  def prepend_with(value)
+  def prepend(value)
     new_node = Node.new(value)
 
     new_node.next_node = @head unless @head.nil?
@@ -33,9 +29,10 @@ class LinkedList
     return 0 if @head.nil?
 
     size = 1
+    dummy = @head
 
-    until @head.next_node.nil?
-      @head = @head.next_node
+    until dummy.next_node.nil?
+      dummy = dummy.next_node
       size += 1
     end
 
@@ -46,13 +43,12 @@ class LinkedList
     return nil if @head.nil?
 
     dummy = @head
-
     dummy = dummy.next_node until dummy.next_node.nil?
     dummy
   end
 
   def at(index)
-    return nil if @head.nil? || index > size - 1
+    return nil if @head.nil? || index > (size - 1)
 
     dummy = @head
 
@@ -76,6 +72,12 @@ class LinkedList
 
     tortoise.next_node = hare.next_node
     hare
+  end
+
+  def shift
+    return nil if @head.nil?
+
+    @head = @head.next_node
   end
 
   def contains?(value)
@@ -114,12 +116,43 @@ class LinkedList
     dummy = @head
     string = "( #{dummy.value} ) -> "
 
-    string << "( #{dummy.value} ) -> " until dummy.next_node.nil?
+    until dummy.next_node.nil?
+      dummy = dummy.next_node
+      string << "( #{dummy.value} ) -> "
+    end
 
-    "#{string}nil"
+    string << 'nil'
   end
 
-  def insert_at(value, index); end
+  def insert_at(value, index)
+    return nil if index > (size - 1)
 
-  def remove_at(index); end
+    return prepend(value) if index.zero?
+
+    new_node = Node.new(value)
+    hare = @head
+    tortoise = @head
+
+    hare = hare.next_node
+    (index - 1).times do
+      hare = hare.next_node
+      tortoise = tortoise.next_node
+    end
+
+    tortoise.next_node = new_node
+    new_node.next_node = hare
+  end
+
+  def remove_at(index)
+    return nil if index > (size - 1)
+
+    return pop if index == (size - 1)
+    return shift if index.zero?
+
+    dummy = @head
+
+    (index - 1).times { dummy = dummy.next_node }
+
+    dummy.next_node = dummy.next_node.next_node
+  end
 end
